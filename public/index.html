@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Socket.io Test</title>
+
+  <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    tr,td{
+      border: 1px solid #444444;
+    }
+
+    .category_big  {
+      display: flex;
+      
+    }
+    .category_big > div{
+      padding :0.5rem;
+      border : 1px solid #444444;
+      
+    }
+  </style>
+</head>
+
+<body>
+  <input id="name" placeholder="이름" style='width: 10em' minlength="2">
+  <input type="text" id="menu_input" placeholder="메뉴를 클릭해주세요" readonly >
+  
+
+  <input type="button" value="주무우우운" onclick="order()">
+
+  <br>
+  <br>
+  <div >
+    <div class='category_big'>
+      <div onclick="btn_big_category(event,'hot_big_coffe')" style="background-color: gray">
+        핫 커피(빅)
+      </div>
+      <div onclick="btn_big_category(event, 'ice_big_coffe')">
+        아이스 커피(빅)
+      </div>
+      <div onclick="btn_big_category(event, 'milk_aid')">
+        우유/에이드
+      </div>
+      <div onclick="btn_big_category(event, 'tea')" style="padding-left: 1rem; padding-right: 1rem;">
+        차
+      </div>
+      <div onclick="btn_big_category(event,'smoothie')">
+        주스/스무디
+      </div>
+      <div onclick="btn_big_category(event,'bakery_bottle')">
+        베이커리/병음료
+      </div>
+    </div> 
+
+  </div>
+
+  <div>
+    <div id="hot_big_coffe">
+      <table>
+        <tr>
+          <td>
+            <button onclick="coffe_btn('아메리카노')">아메리카노</button>
+          </td>
+          <td>
+            <button onclick="coffe_btn('카페라떼')">카페라떼</button>
+          </td>
+          <td>
+            <button onclick="coffe_btn('바닐라 라떼')">바닐라 라떼</button>
+          </td>
+          <td>
+            <button onclick="coffe_btn('연유 라떼')">연유 라떼</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <button onclick="coffe_btn('소이 라떼')">소이 라떼</button>
+          </td>
+          <td>
+            <button onclick="coffe_btn('카푸치노')">카푸치노</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div id="ice_big_coffe" style='display:none'>
+      <table>
+        <tr>
+          <td>
+            <button onclick="coffe_btn('아이스 아메리카노')">아이스 아메리카노</button>
+          </td>
+          <td>
+            <button onclick="coffe_btn('아이스 카페라떼')">아이스 카페라떼</button>
+          </td>
+          <td>
+            <button onclick="coffe_btn('아이스 바닐라 라떼')">아이스 바닐라 라떼</button>
+          </td>
+          <td>
+            <button onclick="coffe_btn('아이스 연유 라떼')">아이스 연유 라떼</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <button onclick="coffe_btn('아이스 소이 라떼')">소이 라떼</button>
+          </td>
+          <td>
+            <button onclick="coffe_btn('아이스 카푸치노')">아이스 카푸치노</button>
+          </td>
+          <td>
+            <button onclick="coffe_btn('콜드브루')">콜드브루</button>
+          </td>
+          <td>
+            <button onclick="coffe_btn('콜드브루 라떼')">콜드브루 라떼</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div id="milk_aid" style='display:none'>
+      <table>
+        <tr>
+          <td>
+            <button onclick="coffe_btn('레몬 에이드')">레몬 에이드</button>
+          </td>
+          <td>
+            <button onclick="coffe_btn('자몽 에이드')">자몽 에이드</button>
+          </td>
+          <td>
+            <button onclick="coffe_btn('알로에 에이드')">알로에 에이드</button>
+          </td>
+          <td>
+            <button onclick="coffe_btn('핫 초코우유')">핫 초코우유</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <button onclick="coffe_btn('아이스 초코우유')">아이스 초코우유</button>
+          </td>
+          <td>
+            <button onclick="coffe_btn('핫 오곡우유')">핫 오곡우유</button>
+          </td>
+          <td>
+            <button onclick="coffe_btn('아이스 오곡우유')">아이스 오곡우유</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div id="tea" style='display:none'>
+      <table>
+        <tr>
+          <td>
+            <button onclick="coffe_btn('케모마일')">케모마일</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div id="smoothie" style='display:none'>
+      <table>
+        <tr>
+          <td>
+            <button onclick="coffe_btn('플레인 요거트 스무디')">플레인 요거트 스무디</button>
+          </td>
+          <td>
+            <button onclick="coffe_btn('딸기 요거트 스무디')">딸기 요거트 스무디</button>
+          </td>
+          <td>
+            <button onclick="coffe_btn('복숭아 요거트 스무디')">복숭아 요거트 스무디</button>
+          </td>
+          <td>
+            <button onclick="coffe_btn('패션후르츠 요거트 스무디')">패션후르츠 요거트 스무디</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <button onclick="coffe_btn('토마토 주스')">토마토 주스</button>
+          </td>
+          <td>
+            <button onclick="coffe_btn('호두 바나나 주스')">호두 바나나 주스</button>
+          </td>
+          <td>
+            <button onclick="coffe_btn('딸기 바나나 주스')">딸기 바나나 주스</button>
+          </td>
+          <td>
+            <button onclick="coffe_btn('수박 주스')">수박 주스</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div id="bakery_bottle" style='display:none'>
+      <table>
+        <tr>
+          <td>
+            <button onclick="coffe_btn('스파클링 애플주스')">스파클링 애플주스</button>
+          </td>
+          <td>
+            <button onclick="coffe_btn('애플주스')">애플주스</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+
+
+  </div>
+
+  
+
+  <br>
+
+
+  <table  style=' border: 1px solid #444444; width: 30%; border-collapse: collapse;'>
+    <tbody id='menu_table'>
+      <tr>
+        <td>이름</td>
+        <td>메뉴</td>
+        <td>삭제</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <br>
+
+  <table  style=' border: 1px solid #444444; width: 30%; border-collapse: collapse;'>
+    <tbody id='count_table'>
+      <tr>
+        <td>메뉴</td>
+        <td>개수</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <h3>늘 먹던거</h3>
+  <table  style=' border: 1px solid #444444; width: 30%; border-collapse: collapse;'>
+    <tbody id='history_table'>
+      <tr>
+        <td>이름</td>
+        <td>메뉴</td>
+        <td>주문</td>
+        <td>삭제</td>
+
+      </tr>
+    </tbody>
+  </table>
+
+  <br>
+  
+<button onclick='end_order()'>전체 초기화 및 히스토리 반영(막 누르면 안되요, 서버파일 내렸다 올려야해요 ㅠㅠ)</button>
+</body>
+<script src="socket.js"></script>
+<script>
+  function btn_big_category(event, category_table_id){
+    category_div =document.querySelector("body > div:nth-child(6) > div")
+
+
+
+    for(i = 0 ; i < category_div.childElementCount ; i++){
+      category_div.children[i].style.backgroundColor = "white"
+    }
+    event.target.style.backgroundColor='gray'
+
+    console.log(document.querySelector("#"+category_table_id) )
+
+    menu_table = document.querySelector("#"+category_table_id)
+
+    table_count = menu_table.parentElement.childElementCount
+
+    for(i = 0 ; i < table_count; i++){
+      menu_table.parentElement.children[i].style.display='none';
+    }
+    menu_table.style.display = 'block'
+  }
+
+  function coffe_btn(menu){
+    document.querySelector("#menu_input").value = menu
+  }
+</script>
+</html>
