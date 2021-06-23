@@ -1,5 +1,5 @@
 
-    var socket = io.connect('http://35.213.98.230:3000');
+   
     // var socket = io.connect('http://localhost:3000');
 
     function del_order(name){
