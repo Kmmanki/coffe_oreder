@@ -1,0 +1,6 @@
+# 필요한 것
+- node 14ver
+- npm init 을 사용하여 노드모듈 생성해줘야함
+- npm install --save express
+- npm install --save http
+- npm install --save socket.io
